@@ -1,5 +1,6 @@
 import Banner from "../Banner/Banner";
 import Category from "../category/Category";
+import ExtraSection from "../extraSection/ExtraSection";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <div>
             <Banner></Banner>
             <Category></Category>
+            <ExtraSection></ExtraSection>
         </div>
     );
 };

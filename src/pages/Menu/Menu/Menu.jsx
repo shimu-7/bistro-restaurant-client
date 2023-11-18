@@ -27,7 +27,7 @@ const Menu = () => {
             <Cover img={menuImage} title={"our menu"} subTitle="WOULD YOU LIKE TO TRY A DISH?"></Cover>
             <SectionTitle heading={"TODAY'S OFFER"} subHeading={"Don't miss"}></SectionTitle>
             <MenuCategory items={offer}></MenuCategory>
-            <MenuCategory items={dessert} coverImg={dessertImg} title="DESSERTS" subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."></MenuCategory>
+            <MenuCategory items={dessert} coverImg={dessertImg} title="dessert" subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."></MenuCategory>
 
             <MenuCategory
             items={pizza}

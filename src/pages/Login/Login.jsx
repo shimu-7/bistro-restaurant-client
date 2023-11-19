@@ -2,14 +2,17 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import logoImage from '../../assets/others/authentication1.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 
 const Login = () => {
     const captchaRef = useRef(null)
     const [able, setAble] = useState(true);
-    const {signIn} = useContext(AuthContext)
+    const {signIn} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -31,8 +34,8 @@ const Login = () => {
                 icon: "success",
                 title: "Great!!!",
                 text: "Signed in successfully",
-                
               });
+              navigate(from, { replace: true });
         })
 
         

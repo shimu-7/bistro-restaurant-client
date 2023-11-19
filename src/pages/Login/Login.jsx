@@ -3,6 +3,7 @@ import logoImage from '../../assets/others/authentication1.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const captchaRef = useRef(null)
@@ -46,6 +47,9 @@ const Login = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Bistro - SignUp</title>
+            </Helmet>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col md:flex-row">
                     <div className="text-center md:w-1/2 lg:text-left">

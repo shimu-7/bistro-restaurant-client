@@ -2,20 +2,41 @@ import { Link } from "react-router-dom";
 import logoImage from '../../assets/others/authentication1.png'
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Result } from "postcss";
+import { updateProfile } from "firebase/auth";
 
 
 
 
 
 const SignUp = () => {
+    const [error, setError]= useState(null)
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
+    const {createUser} = useContext(AuthContext);
+
     const onSubmit = (data) => {
         console.log(data)
+        const {name,email,password} = data;
+        console.log(name, email,password)
+        createUser(email, password)
+        .then(result=>{
+            console.log(result.user);
+            updateProfile(result.user,{
+                displayName: name
+            })
+            .then()
+        })
+        .catch(error=>{
+            console.log(error.message);
+            setError(error.message);
+        })
     }
 
     // const handleSignUp = e => {
@@ -55,8 +76,15 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" {...register("password",  { required: true,minLength:6, maxLength: 20 })} name='password' required />
-                                {errors.password?.type==='required' && <span className="text-red-600">Password should contain 6 character or more</span>}
+                                <input type="password" placeholder="password" className="input input-bordered" {...register("password",  { required: true,
+                                    minLength:6, 
+                                    maxLength: 20,
+                                    pattern: /(?=^.{6,}$)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).*/
+                                     })} name='password' required />
+                                {errors.password?.type==='required' && <span className="text-red-600">Email field is required</span>}
+                                {errors.password?.type==='minLength' && <span className="text-red-600">Password should contain 6 character or more</span>}
+                                {errors.password?.type==='maxLength' && <span className="text-red-600">Password should contain maximum 20 character</span>}
+                                {errors.password?.type==='pattern' && <span className="text-red-600">Password should contain at least one capital/special character</span>}
 
                             </div>
 
@@ -64,6 +92,9 @@ const SignUp = () => {
                                 <button className={`btn text-white bg-yellow-700 btn-outline`}>SignUp</button>
                             </div>
                             <p><small>Already have an account? <Link to="/login">Sign In</Link></small></p>
+                            {
+                                error && <p className="text-red-600">{error}</p>
+                            }
                         </form>
 
                     </div>

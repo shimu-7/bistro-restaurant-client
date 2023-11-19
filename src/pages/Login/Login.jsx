@@ -4,6 +4,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const captchaRef = useRef(null)
@@ -26,6 +27,12 @@ const Login = () => {
         signIn(email,password)
         .then(result=>{
             console.log(result.user)
+            Swal.fire({
+                icon: "success",
+                title: "Great!!!",
+                text: "Signed in successfully",
+                
+              });
         })
 
         
@@ -33,7 +40,8 @@ const Login = () => {
 
     const handleValidate = e => {
         e.preventDefault();
-        const captcha = captchaRef.current.value;
+       // const captcha = captchaRef.current.value;
+       const captcha = e.target.value
 
         if (validateCaptcha(captcha) == true) {
             setAble(false);
@@ -76,12 +84,12 @@ const Login = () => {
                                 <label className="label">
                                     <LoadCanvasTemplate />
                                 </label>
-                                <input type="text" ref={captchaRef} placeholder="type captcha" className="input input-bordered" name='captcha' required />
-                                <button onClick={handleValidate} className='mt-2 btn btn-outline btn-xs'>Validate</button>
+                                <input type="text" onBlur={handleValidate} ref={captchaRef} placeholder="type captcha" className="input input-bordered" name='captcha' required />
+                                {/* <button  className='mt-2 btn btn-outline btn-xs'>Validate</button> */}
 
                             </div>
                             <div className="form-control mt-6">
-                                <button disabled={able} className={`btn btn-primary`}>Login</button>
+                                <button disabled={able} className={`btn text-white bg-yellow-700 btn-outline`}>Sign In</button>
                             </div>
                             <p><small>New here? <Link to="/signup">Create An account</Link></small></p>
                         </form>

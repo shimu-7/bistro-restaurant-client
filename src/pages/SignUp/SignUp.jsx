@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Result } from "postcss";
 import { updateProfile } from "firebase/auth";
 
 

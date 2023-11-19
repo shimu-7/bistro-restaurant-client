@@ -29,7 +29,10 @@ const Navbar = () => {
         
         <li><NavLink to="/signup">Sign Up</NavLink></li>
         {
-            user?  <><li><Link onClick={handleSignOut} to="/">Sign Out</Link></li></>:
+            user?  <>
+            <span>{user?.displayName}</span>
+            <li><Link onClick={handleSignOut} to="/">Sign Out</Link></li>
+            </>:
              <><li><NavLink to="/login">Sign In</NavLink></li></> 
         }
         

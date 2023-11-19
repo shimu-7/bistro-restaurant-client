@@ -2,40 +2,46 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 const Navbar = () => {
-    const {user, logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
-    const handleSignOut = () =>{
+    const handleSignOut = () => {
         logOut()
-        .then(()=>{
-            Swal.fire({
-                icon: "Success",
-                title: "Bye!!!",
-                text: "User Logged Out",
-              
-              });
-        })
-        .catch(error=>{
-            console.log(error.message)
-        })
+            .then(() => {
+                Swal.fire({
+                    icon: "Success",
+                    title: "Bye!!!",
+                    text: "User Logged Out",
+
+                });
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/menu">Our Menu</NavLink></li>
         <li><NavLink to="/order/salad">Order Now</NavLink></li>
-        <li><NavLink to="/myCart">My Cart</NavLink></li>
-        
+        <li><NavLink to="/myCart">
+            <button className="flex justify-center items-center gap-2">
+            <FaShoppingCart />
+                <div className="badge badge-secondary">+0</div>
+            </button>
+        </NavLink></li>
+
         <li><NavLink to="/signup">Sign Up</NavLink></li>
         {
-            user?  <>
-            <span>{user?.displayName}</span>
-            <li><Link onClick={handleSignOut} to="/">Sign Out</Link></li>
-            </>:
-             <><li><NavLink to="/login">Sign In</NavLink></li></> 
+            user ? <>
+               
+                <li><Link onClick={handleSignOut} to="/">Sign Out</Link></li>
+            </> :
+                <><li><NavLink to="/login">Sign In</NavLink></li></>
         }
-        
+
     </>
     return (
         <div>
@@ -48,13 +54,13 @@ const Navbar = () => {
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             {links}
                         </ul>
-                        
+
                     </div>
                     <a className="btn btn-ghost text-xl">Bistro Boss</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                       {links}
+                        {links}
                     </ul>
                 </div>
                 <div className="navbar-end">

@@ -7,6 +7,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 
 
@@ -128,6 +129,9 @@ const navigate = useNavigate();
 
                             <div className="form-control mt-6">
                                 <button className={`btn text-white bg-yellow-700 btn-outline`}>SignUp</button>
+                            </div>
+                            <div className="w-full">
+                            <SocialLogin className='w-full'></SocialLogin>
                             </div>
                             <p><small>Already have an account? <Link to="/login">Sign In</Link></small></p>
                             {
